@@ -10,6 +10,7 @@ import com.example.myapp.rest.PixabayService;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +34,7 @@ public class     MainActivity extends AppCompatActivity {
     private static final String BASE_URL = "http://pixabay.com/";
     private static final String API_KEY = "12175339-7048b7105116d7fa1da74220c";
     public static final int INIT_PAGE = 0;
-    public static final int PER_PAGE = 3;
+    public static final int PER_PAGE = 6;
 
     //const
 
@@ -68,14 +69,16 @@ public class     MainActivity extends AppCompatActivity {
 
         recycler_view = findViewById(R.id.recycler_view);
         recycler_view.setHasFixedSize(true);
-        recycler_view.setLayoutManager(new LinearLayoutManager(this));
+        recycler_view.setLayoutManager(new GridLayoutManager(this,2));
         recycler_view.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 visibleImageCount = recyclerView.getChildCount();
                 totalImageCount = recyclerView.getLayoutManager().getItemCount();
-                lastImageCount = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                //lastImageCount = ((GridLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                //lastImageCount = ((GridLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+                lastImageCount = ((GridLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 if (recyclerViewLoading){
                     if (lastImageCount + visibleImageCount >= totalImageCount){
                         connectAndGetApiData();
