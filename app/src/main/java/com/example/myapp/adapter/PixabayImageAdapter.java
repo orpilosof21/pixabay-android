@@ -39,7 +39,7 @@ public class PixabayImageAdapter extends RecyclerView.Adapter<PixabayImageAdapte
 
     @Override
     public void onBindViewHolder(@NonNull PixabayImageViewHolder holder, int position) {
-        String image_url = imageList.get(position).getImage_url();
+        String image_url = imageList.get(position).getWebformat_url();
         Picasso.with(context).load(image_url).into(holder.image);
     }
 
